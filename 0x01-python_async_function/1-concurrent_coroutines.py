@@ -3,20 +3,22 @@
 Async routine called wait_n that takes in 2 int
 arguments (in this order): n and max_delay
 """
-from typing import List
 import asyncio
-import operator
+from typing import List
+from heapq import heappush, heappop
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
-
 async def wait_n(n: int, max_delay: int) -> List[float]:
-    """wait_n spawn wait_random n times with the specified max_delay"""
+    """Spawn wait_random n times"""
+    heap = []
     delays = []
+
     for _ in range(n):
-        delay_time = await wait_random(max_delay)
-        await asyncio.sleep(delay_time)
-        delays.append((delay_time,))
-        delays = sorted(delays, key=operator.itemgetter(0))
-    delays = [delay[0] for delay in delays]
+        delay = await wait_random(max_delay)
+        heappush(heap, delay)
+
+    while heap:
+        delays.append(heappop(heap))
+
     return delays
