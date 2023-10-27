@@ -2,6 +2,7 @@
 """Test utils module"""
 
 import unittest
+from unittest.mock import patch
 from parameterized import parameterized
 import utils
 
@@ -26,6 +27,26 @@ class TestAccessNestedMap(unittest.TestCase):
         """test_access_nested_map_exception method"""
         with self.assertRaises(KeyError):
             utils.access_nested_map(nested_map, path)
+
+
+class TestGetJson(unittest.TestCase):
+    """TestGetJson class"""
+    @patch('utils.requests.get')
+    def test_get_json(self, mock_get):
+        """test_get_json method"""
+        test_url_payload = [
+            ("http://example.com", {"payload": True}),
+            ("http://holberton.io", {"payload": False})
+        ]
+
+        for test_url, test_payload in test_url_payload:
+            mock_response = mock_get.return_value
+            mock_response.json.return_value = test_payload
+
+            result = utils.get_json(test_url)
+
+            mock_get.assert_called_with(test_url)
+            self.assertEqual(result, test_payload)
 
 
 if __name__ == "__main__":
