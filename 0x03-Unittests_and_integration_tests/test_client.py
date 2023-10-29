@@ -3,7 +3,8 @@
 
 import unittest
 from parameterized import parameterized
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
+from typing import Dict
 from client import GithubOrgClient
 
 
@@ -14,7 +15,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", {'login': "abc"})
     ])
     @patch('client.get_json')
-    def test_org(self, test_org, expected_result, mock_get_json):
+    def test_org(self, test_org: str, expected_result: Dict, mock_get_json: MagicMock):
         """test_org method"""
         mock_get_json.return_value = expected_result
 
