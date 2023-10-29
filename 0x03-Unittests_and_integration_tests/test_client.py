@@ -11,12 +11,14 @@ from client import GithubOrgClient
 class TestGithubOrgClient(unittest.TestCase):
     """TestGithubOrgClient class"""
     @parameterized.expand([
-        ("google", {'login': "google"}),
-        ("abc", {'login': "abc"})
+        ("google",),
+        ("abc",),
     ])
     @patch('client.get_json')
-    def test_org(self, test_org: str, expected_result: Dict, mock_get_json: MagicMock):
+    def test_org(self, test_org, mock_get_json):
         """test_org method"""
+        expected_result = {'login': test_org}
+
         mock_get_json.return_value = expected_result
 
         test_instance = GithubOrgClient(test_org)
