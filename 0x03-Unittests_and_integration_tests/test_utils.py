@@ -49,10 +49,7 @@ class TestGetJson(unittest.TestCase):
 
 class TestMemoize(unittest.TestCase):
     """TestMomoize class"""
-    @parameterized.expand([
-        (42,),
-    ])
-    def test_memoize(self, test_result):
+    def test_memoize(self):
         """test_memoize method"""
         class TestClass:
 
@@ -64,7 +61,7 @@ class TestMemoize(unittest.TestCase):
                 return self.a_method()
 
         with patch.object(TestClass, 'a_method') as mock_a_method:
-            mock_a_method.return_value = test_result
+            mock_a_method.return_value = 42
 
             test_instance = TestClass()
 
@@ -72,8 +69,8 @@ class TestMemoize(unittest.TestCase):
             result2 = test_instance.a_property
 
             mock_a_method.assert_called_once()
-            self.assertEqual(result1, test_result)
-            self.assertEqual(result2, test_result)
+            self.assertEqual(result1, 42)
+            self.assertEqual(result2, 42)
 
 
 if __name__ == "__main__":
