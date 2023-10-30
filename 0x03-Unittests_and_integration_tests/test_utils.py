@@ -51,6 +51,7 @@ class TestMemoize(unittest.TestCase):
     """TestMomoize class"""
     @parameterized.expand([
         (42,),
+        (42,),
     ])
     def test_memoize(self, test_result):
         """test_memoize method"""
