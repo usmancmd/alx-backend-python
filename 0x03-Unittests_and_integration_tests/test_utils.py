@@ -51,7 +51,6 @@ class TestMemoize(unittest.TestCase):
     """TestMomoize class"""
     @parameterized.expand([
         (42,),
-        (42,),
     ])
     def test_memoize(self, test_result):
         """test_memoize method"""
@@ -73,7 +72,8 @@ class TestMemoize(unittest.TestCase):
             result2 = test_instance.a_property
 
             mock_a_method.assert_called_once()
-            self.assertEqual(result1, result2)
+            self.assertEqual(result1, test_result)
+            self.assertEqual(result2, test_result)
 
 
 if __name__ == "__main__":
