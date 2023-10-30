@@ -64,11 +64,11 @@ class TestMemoize(unittest.TestCase):
             mock_a_method.return_value = 42
 
             test_instance = TestClass()
+            mock_a_method.assert_called_once()
 
             result1 = test_instance.a_property
             result2 = test_instance.a_property
 
-            mock_a_method.assert_called_once()
 
             self.assertEqual(result1, result2)
 
